@@ -4,9 +4,13 @@
 #include "version.h"
 
 #define BASE 0 // default layer
-#define MOVE 1 // symbols
-#define SYMB 2 // symbols
-#define MDIA 3 // media keys
+#define GAME 1 // media keys
+#define MOUS 2 // symbols
+#define MOVE 3 // symbols
+#define SYMB 4 // symbols
+
+
+
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -43,10 +47,10 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,   HOL_RW,  HOL_FS,  HOL_MET, HOL_CSE,  HOL_IND,  KC_LBRC,
-        KC_GRAVE, KC_Q,    KC_W,    KC_E,     KC_R,    KC_T,     KC_SLSH,
+        KC_GRV,   HOL_RW,  HOL_FS,  HOL_MET, HOL_CSE,  HOL_IND,  KC_LBRC,
+        KC_ESC, KC_Q,    KC_W,    KC_E,     KC_R,    KC_T,     KC_SLSH,
         KC_TAB,   KC_A,    KC_S,    KC_D,     KC_F,    KC_G,
-        KC_LSFT,  KC_Z,    KC_X,    KC_C,     KC_V,    KC_B,     XXXXXXX,
+        KC_LSFT,  KC_Z,    KC_X,    KC_C,     KC_V,    KC_B,     TG(MOUS),
         KC_LCTRL, XXXXXXX, XXXXXXX, XXXXXXX,  KC_LGUI,
                                                        XXXXXXX,  XXXXXXX,
                                                                  XXXXXXX,
@@ -59,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_LPRN, KC_RPRN,  KC_LBRC,  KC_RBRC, KC_RCTRL,
         E_GO_L,   E_GO_R,
         XXXXXXX,
-        XXXXXXX,  KC_RCTRL, KC_SPC
+        KC_RCTRL, MO(MOUS), KC_SPC
     ),
 
 // MOVEMENT
@@ -79,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   _______, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_INS,  _______,
         _______,  _______, _______, _______,  _______,   _______, LPAR_RPAR,
                            DUAL_QU, HOL_QTE,  _______,   _______, HOL_TRM,
-        _______,  _______,
+        TG(GAME), _______,
         _______,
         _______,  _______, HOL_R
     ),
@@ -87,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
         // left hand
-        _______,  _______, _______, _______, _______, _______,  _______,
+        _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,
         _______,  _______, _______, _______, _______, _______,  _______,
         KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
         _______,  _______, _______, _______, _______, _______,  _______,
@@ -96,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                 _______,
                                              _______, MO(MOVE), _______,
         // right hand
-        _______,  _______, _______, _______, _______, _______,  _______,
+        KC_F7,    KC_F8,   KC_F9,   KC_F10,   KC_F11, KC_F12,   _______,
         _______,  _______, _______, _______, _______, _______,  _______,
                    KC_7,   KC_8,    KC_9,    KC_0,    KC_MINUS, KC_EQL,
         _______,  _______, _______, _______, _______, _______,  _______,
@@ -106,25 +110,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______
     ),
 
-// MEDIA AND MOUSE
-[MDIA] = LAYOUT_ergodox(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
+// Games layout
+[GAME] = LAYOUT_ergodox(
+       _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
+       KC_H,    _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, KC_LGUI, KC_LALT,
+                                           _______, _______,
+                                                    _______,
+                                  KC_SPC,  _______, _______,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
-                          KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_WBAK
+       KC_7,     KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  _______,
+       _______,  _______, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______, _______, _______,
+       _______,  _______, _______, _______, _______, _______, _______,
+                          _______, _______, _______, _______, _______,
+       _______, _______,
+       _______,
+       _______, _______, _______
+),
+
+// Mouse layout
+[MOUS] = LAYOUT_ergodox(
+       _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______,
+                                           _______, _______,
+                                                    _______,
+                                  _______, _______, _______,
+    // right hand
+       _______, _______, _______, _______, _______, _______,  _______,
+       _______, KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
+                KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+       _______, KC_WH_L, KC_WH_R, KC_BTN3, _______, _______, _______,
+                         _______, _______, _______, _______, _______,
+       KC_ACL2, _______,
+       KC_ACL1,
+       KC_ACL0, _______, _______
 ),
 };
 
