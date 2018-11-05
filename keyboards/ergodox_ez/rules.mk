@@ -84,7 +84,6 @@ SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
 RGB_MATRIX_ENABLE = no # enable later
-TAP_DANCE_ENABLE  = yes
 DEBOUNCE_TYPE = eager_pr
 
 LAYOUTS = ergodox

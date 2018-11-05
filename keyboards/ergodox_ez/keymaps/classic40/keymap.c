@@ -43,32 +43,32 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
-        //  left hand
-        KC_ESC,  HOL_RW,  HOL_FS,  HOL_MET, HOL_CSE, HOL_IND, KC_LBRC,
+        // left hand
+        KC_ESC,  HOL_RW,  HOL_FS,  HOL_MET, HOL_CSE, HOL_IND, XXXXXXX,
         KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    MEH_T(KC_NO),
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    E_GO_L,
         KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI,
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
-                                            KC_LALT, MO(LY3), HOL_H,
+                                            KC_LCTL, MO(LY1), HOL_H,
         // right hand
-        KC_RBRC, HOL_FND, HOL_MCH, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
+        XXXXXXX, HOL_FND, HOL_MCH, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
    MEH_T(KC_NO), KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        E_GO_R, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(LY4),
-                          KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_RCTRL,
+        E_GO_R,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(LY2),
+                          KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, HOL_TRM,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        MO(LY2), KC_RCTL, KC_SPC
-    ),
+        MO(LY2), KC_LALT, KC_SPC
+),
 
-// Movement
-[LY3] = LAYOUT_ergodox(
+// MOVEMENT
+[LY1] = LAYOUT_ergodox(
         // left hand
-        L_R_BRC, _______, _______, _______, _______, _______, _______,
-        _______, KC_VOLD, KC_VOLU, KC_END,  _______, _______, _______,
-        KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______,
+        _______, _______, _______, _______, _______, _______, _______,
+        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, _______, _______,
+        KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F,   _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  _______, _______, _______,
         _______, _______, _______, _______, _______,
                                                      _______, _______,
@@ -76,39 +76,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______, _______,
         // right hand
         _______, _______, _______, _______, _______, _______, HOL_APP,
-        _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
+        _______, HOL_Y,   KC_HOME, KC_UP,   KC_END,  HOL_P,   HOL_THN,
                  _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, _______, _______, _______, _______, _______, L_R_PAR,
-                          DUAL_QU, HOL_QTE, _______, _______, HOL_TRM,
-        TG(LY1), _______,
+                          DUAL_QU, HOL_QTE, _______, _______, _______,
+        _______, _______,
         _______,
-        _______, _______, HOL_R
+        _______, KC_RCTL, HOL_R
     ),
 
-// Symbols
-[LY4] = LAYOUT_ergodox(
+// SYMBOLS
+[LY2] = LAYOUT_ergodox(
         // left hand
         _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,
-        _______,  _______, _______, _______, _______, _______,  _______,
+        KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC,  _______,
         KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
         _______,  _______, _______, _______, _______, _______,  _______,
         _______,  _______, _______, _______, _______,
                                                       _______,  _______,
                                                                 _______,
-                                             _______, MO(LY3), _______,
+                                             _______, KC_RSFT,  _______,
         // right hand
-        KC_F7,    KC_F8,   KC_F9,   KC_F10,   KC_F11, KC_F12,   _______,
-        _______,  _______, _______, _______, _______, _______,  _______,
-                   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINUS, KC_EQL,
-        _______,  _______, _______, _______, _______, _______,  _______,
-                           _______, _______, _______, _______,  _______,
-        _______,  _______,
+        KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
+        _______, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, KC_PLUS,
+                 KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
+        _______, _______, _______, _______, _______, _______, _______,
+                          _______, _______, _______, _______, _______,
+        _______, _______,
         _______,
-        _______,  _______, _______
+        _______, _______, _______
     ),
 
 // Games layout
-[LY1] = LAYOUT_ergodox(
+[LY3] = LAYOUT_ergodox(
        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
        KC_H,    _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______,
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            _______, _______,
                                                     _______,
                                   KC_SPC,  _______, _______,
-
+    // right hand
        KC_7,     KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  _______,
        _______,  _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______, _______,
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 // Mouse layout
-[LY2] = LAYOUT_ergodox(
+[LY4] = LAYOUT_ergodox(
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______,
@@ -148,28 +148,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_ACL1,
        KC_ACL0, _______, _______
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(LY4)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      break;
-    case 1:
-      if (record->event.pressed) { // For resetting EEPROM
-        eeconfig_init();
-      }
-      break;
-  }
-  return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -222,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   // Select up to point
                   SS_LCTRL(" ")SS_LALT("<")SS_LCTRL("xx")
                   // Load in HOL
-                  SS_LCTRL("uu")SS_LALT("hr")SS_LCTRL(" "));
+                  SS_LCTRL("uu")SS_LALT("hr")SS_LCTRL("  "));
       return false;
       break;
     case HOL_P:
@@ -291,7 +269,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   // move to hol window
                   SS_LCTRL("x")SS_TAP(X_RIGHT)
                   // write in it
-                  "print_find \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+                  "print_find \" \" ;"
+                  // move to the middle
+                  SS_TAP(X_LEFT)SS_TAP(X_LEFT));
       return false;
       break;
     case HOL_MCH:
@@ -300,7 +280,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   // move to hol window
                   SS_LCTRL("x")SS_TAP(X_RIGHT)
                   // write in it
-                  "print_match [] \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+                  "print_match [] ` ` ` ` ;"
+                  // move to the midle
+                  SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
       return false;
       break;
     }
