@@ -20,6 +20,8 @@ enum custom_keycodes {
   E_GO_L,
   E_GO_R,
   E_LAST,
+  E_MAGIT,
+  E_SAVE,
   HOL_X,
   HOL_Y,
   HOL_P,
@@ -38,25 +40,28 @@ enum custom_keycodes {
   HOL_QTE,
   HOL_THN,
   HOL_APP,
-  ML_CMNT
+  ML_CMNT,
+  NV_SAVE,
+  NV_REC,
+  NV_LAYO
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
         //  left hand
-        KC_ESC,  HOL_RW,  HOL_FS,  HOL_MET, HOL_CSE, HOL_IND, KC_LBRC,
-        KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    E_GO_L,
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINUS,
+        KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    TG(LY2),
-        KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LPRN,
+        KC_LCTL, XXXXXXX, XXXXXXX, E_MAGIT, KC_LGUI,
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
                                             KC_LALT, MO(LY3), HOL_H,
         // right hand
-        KC_RBRC, HOL_FND, HOL_MCH, XXXXXXX, XXXXXXX, KC_DEL,  KC_BSPC,
-        E_GO_R,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-   MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(LY4),
+        KC_RPRN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(LY4),
                           KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_RCTRL,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
@@ -66,10 +71,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Movement
 [LY3] = LAYOUT_ergodox(
         // left hand
-        L_R_BRC, _______, _______, _______, _______, _______, _______,
+        L_R_BRC, HOL_RW,  HOL_FS,  HOL_MET, HOL_CSE, HOL_IND, _______,
         _______, KC_VOLD, KC_VOLU, KC_END,  _______, _______, _______,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______,
-        _______, ML_CMNT, HOL_X,   E_LAST,  _______, _______, _______,
+        _______, ML_CMNT, HOL_X,   E_LAST,  _______, _______, E_GO_L,
         _______, _______, _______, _______, _______,
                                                      _______, _______,
                                                               _______,
@@ -78,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, HOL_APP,
         _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
                  _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
-        _______, _______, _______, _______, _______, _______, L_R_PAR,
+        E_GO_R,  _______, _______, _______, _______, _______, L_R_PAR,
                           DUAL_QU, HOL_QTE, _______, _______, HOL_TRM,
         TG(LY1), _______,
         _______,
@@ -88,17 +93,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Symbols
 [LY4] = LAYOUT_ergodox(
         // left hand
+        KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    _______,
         _______,  _______, _______, _______, _______, _______,  _______,
-        KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,
         KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
         _______,  _______, _______, _______, _______, _______,  _______,
         _______,  _______, _______, _______, _______,
                                                       _______,  _______,
                                                                 _______,
-                                             _______, MO(LY3), _______,
+                                             _______, MO(LY3),  _______,
         // right hand
+        _______,  KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         _______,  _______, _______, _______, _______, _______,  _______,
-        KC_F7,    KC_F8,   KC_F9,   KC_F10,   KC_F11, KC_F12,   _______,
                   KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS, KC_EQL,
         _______,  _______, _______, _______, _______, _______,  _______,
                            _______, _______, _______, _______,  _______,
@@ -109,16 +114,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Games layout
 [LY1] = LAYOUT_ergodox(
-       _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,
+       _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, KC_Y,
        _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, KC_H,
        _______, _______, _______, KC_LGUI, KC_LCTL,
-                                           _______, _______,
-                                                    _______,
+                                           NV_REC,  NV_SAVE,
+                                                    NV_LAYO,
                                   KC_SPC,  MO(LY2), KC_LALT,
 
-       KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+       _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,
@@ -202,6 +207,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case E_LAST:
       SEND_STRING(SS_LCTRL("c "));
+      return false;
+      break;
+    case E_MAGIT:
+      SEND_STRING(SS_LCTRL(SS_LSFT(SS_LALT("g"))));
+      return false;
+      break;
+    case E_SAVE:
+      SEND_STRING(SS_LCTRL("x")SS_LCTRL("s"));
       return false;
       break;
     case ML_CMNT:
@@ -303,6 +316,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   "print_match [] \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
       return false;
       break;
+    case NV_SAVE:
+      SEND_STRING(SS_LALT(SS_TAP(X_F10)));
+    case NV_REC:
+            SEND_STRING(SS_LALT(SS_TAP(X_F9)));
+    case NV_LAYO:
+      SEND_STRING(SS_LALT("z"));
     }
   }
 
