@@ -49,11 +49,11 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
         //  left hand
-        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINUS,
-        KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
-        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LPRN,
-        KC_LCTL, XXXXXXX, XXXXXXX, E_MAGIT, KC_LGUI,
+        KC_ESC,  HOL_MET, HOL_CSE, HOL_IND, HOL_FS,  HOL_RW,  KC_MINUS,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
+        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(LY2),
+        KC_GRV, XXXXXXX, XXXXXXX, E_MAGIT, KC_LGUI,
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
                                             KC_LALT, MO(LY3), HOL_H,
@@ -61,17 +61,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        KC_RPRN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(LY4),
-                          KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_RCTRL,
+        TG(LY2), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(LY4),
+                 KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_RCTRL,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        MO(LY2), KC_RCTL, KC_SPC
+        XXXXXXX, KC_RCTL, KC_SPC
     ),
 
 // Movement
 [LY3] = LAYOUT_ergodox(
         // left hand
-        L_R_BRC, HOL_RW,  HOL_FS,  HOL_MET, HOL_CSE, HOL_IND, _______,
+        L_R_BRC, _______, _______, _______, _______, _______, _______,
         _______, KC_VOLD, KC_VOLU, KC_END,  _______, _______, _______,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  _______, _______, E_GO_L,
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______, _______,
         // right hand
         _______, _______, _______, _______, _______, _______, HOL_APP,
-        _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
+        KC_BSPC, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
                  _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         E_GO_R,  _______, _______, _______, _______, _______, L_R_PAR,
                           DUAL_QU, HOL_QTE, _______, _______, HOL_TRM,
@@ -149,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
        _______, KC_WH_L, KC_WH_R, KC_BTN3, _______, _______, _______,
                          _______, _______, _______, _______, _______,
-       KC_ACL2, _______,
-       KC_ACL1,
-       KC_ACL0, _______, _______
+       KC_ACL1, KC_ACL0,
+       KC_ACL2,
+       _______, _______, _______
 ),
 };
 
@@ -222,7 +222,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case HOL_X:
-      SEND_STRING(SS_LCTRL("x")"1"SS_LALT("h")"3");
+      SEND_STRING(// Full screen
+                  SS_LCTRL("x")"1"
+                  // Split vertically
+                  SS_LCTRL("x")"3"
+                  // Move to the right
+                  SS_LCTRL("x")SS_TAP(X_RIGHT)
+                  // Find hol
+                  SS_LCTRL("x")"bhol"
+                  );
       return false;
       break;
     case HOL_Y:
@@ -291,11 +299,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case HOL_IND:
-      SEND_STRING("Induct_on ` ` "SS_TAP(X_LEFT));
+      SEND_STRING("ho_match_mp_tac");
       return false;
       break;
     case HOL_MET:
-      SEND_STRING("METIS_TAC []"SS_TAP(X_LEFT));
+      SEND_STRING("metis_tac []"SS_TAP(X_LEFT));
       return false;
       break;
     case HOL_FND:
