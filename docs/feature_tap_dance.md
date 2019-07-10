@@ -185,9 +185,9 @@ Below is a specific example:
 
 ## Setup
 
-You will need a few things that can be used for 'Quad Function Tap-Dance'. 
+You will need a few things that can be used for 'Quad Function Tap-Dance'.
 
-You'll need to add these to the top of your `keymap.c` file, before your keymap. 
+You'll need to add these to the top of your `keymap.c` file, before your keymap.
 
 ```c
 typedef struct {
@@ -219,7 +219,7 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 
 ```
 
-Now, at the bottom of your `keymap.c` file, you'll need to add the following: 
+Now, at the bottom of your `keymap.c` file, you'll need to add the following:
 
 ```c
 /* Return an integer that corresponds to what kind of tap dance should be executed.
@@ -359,7 +359,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 2) { return DOUBLE_SINGLE_TAP; }
   else { return 3; } // any number higher than the maximum state value you return above
 }
- 
+
 // handle the possible states for each tapdance keycode you define:
 
 void altlp_finished (qk_tap_dance_state_t *state, void *user_data) {

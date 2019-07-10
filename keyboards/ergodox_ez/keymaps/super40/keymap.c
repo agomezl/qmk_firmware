@@ -41,28 +41,36 @@ enum custom_keycodes {
   ML_CMNT
 };
 
+// One-shot modifiers definitions
+#define OSM_S OSM(MOD_LSFT)
+#define OSM_C OSM(MOD_LCTL)
+#define OSM_W OSM(MOD_LGUI)
+#define OSM_G OSM(MOD_LALT)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC_DEL,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
-                                            KC_LCTL, MO(LY1), XXXXXXX,
+                                            XXXXXXX, MO(LY1), XXXXXXX,
         // right hand
         XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
         XXXXXXX, KC_Y,    KC_U,        KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,        KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        XXXXXXX, KC_N,    GUI_T(KC_M), KC_COMM, KC_DOT,  KC_SLSH, MO(LY2),
+        XXXXXXX, KC_N,    GUI_T(KC_M), OSM_G,   OSM_M,   OSM_C,   MO(LY2),
                           XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-s        XXXXXXX, MO(LY2), ALT_T(KC_SPC)
+        XXXXXXX, XXXXXXX, KC_SPC
 ),
 
+// KC_COMM, KC_DOT,  KC_SLSH
 
 
 // MOVEMENT

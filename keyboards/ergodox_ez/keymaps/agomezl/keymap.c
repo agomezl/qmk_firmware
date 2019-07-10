@@ -46,26 +46,32 @@ enum custom_keycodes {
   NV_LAYO
 };
 
+// One-shot modifiers definitions
+#define OSM_S OSM(MOD_LSFT)
+#define OSM_C OSM(MOD_LCTL)
+#define OSM_M OSM(MOD_LALT)
+#define OSM_G OSM(MOD_LGUI)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
         //  left hand
         KC_ESC,  HOL_MET, HOL_CSE, HOL_IND, HOL_FS,  HOL_RW,  KC_MINUS,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
-        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(LY2),
-        KC_GRV, XXXXXXX, XXXXXXX, E_MAGIT, KC_LGUI,
+        KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
+ LCTL_T(KC_TAB), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+        OSM_S,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(LY2),
+        XXXXXXX, XXXXXXX, XXXXXXX, E_MAGIT, OSM_G,
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
-                                            KC_LALT, MO(LY3), HOL_H,
+                                            OSM_M,   MO(LY3), HOL_H,
         // right hand
         KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        TG(LY2), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(LY4),
+        TG(LY2), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL(LY4),
                  KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_RCTRL,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        XXXXXXX, KC_RCTL, KC_SPC
+        XXXXXXX, OSM_C,   KC_SPC
     ),
 
 // Movement
