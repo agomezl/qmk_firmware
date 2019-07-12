@@ -59,10 +59,19 @@ enum custom_keycodes {
   HOL_THN,
   HOL_APP,
   ML_CMNT,
-  NV_SAVE,
-  NV_REC,
-  NV_LAYO
+  DYNAMIC_MACRO_RANGE
 };
+
+// Macros
+#include "dynamic_macro.h"
+
+#define RUN_M1 DYN_MACRO_PLAY1
+#define RUN_M2 DYN_MACRO_PLAY2
+#define REC_M1 DYN_REC_START1
+#define REC_M2 DYN_REC_START2
+#define STOP_M DYN_REC_STOP
+
+
 
 #define C_TAB LCTL_T(KC_TAB)
 #define OSM_S OSM(MOD_LSFT)
@@ -80,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL_LY2,
-        KC_GRV,  OSL_LY4, KC_LGUI, KC_LALT, MO(LY1), KC_SPC,  KC_SPC,  KC_LCTL, KC_LPRN, KC_RPRN, KC_LEFT, KC_RGHT
+        KC_GRV,  MO(LY4), KC_LGUI, KC_LALT, MO(LY1), KC_SPC,  KC_SPC,  KC_LCTL, KC_LPRN, KC_RPRN, RUN_M2,  RUN_M1
 ),
 
 /* MOVEMENT
@@ -110,13 +119,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [LY4] = LAYOUT_planck_grid(
         _______, _______, _______, _______, _______, _______, KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
-        _______, _______, _______, _______, _______, _______, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, STOP_M,
         _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_R, KC_BTN3, _______, _______,
-        MU_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        MU_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, REC_M2,  REC_M1
 ),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_record_dynamic_macro(keycode, record)) {
+        return false;
+    }
 
   if (record->event.pressed) {
     switch (keycode) {
