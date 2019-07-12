@@ -22,9 +22,9 @@ extern keymap_config_t keymap_config;
 enum planck_layers {
                     LY0, // BASE
                     LY1, // MOVE
-                    LY2, // SYMB
-                    //LY3,  // MOUSE
-                    MUS
+                    LY2, // NUM
+                    LY3, // MOUSE
+                    LY4  // SYM
 };
 
 enum custom_keycodes {
@@ -61,25 +61,26 @@ enum custom_keycodes {
   ML_CMNT,
   NV_SAVE,
   NV_REC,
-  NV_LAYO,
-  PLOVER,
-  EXT_PLV
+  NV_LAYO
 };
 
+#define C_TAB LCTL_T(KC_TAB)
 #define OSM_S OSM(MOD_LSFT)
 #define OSM_C OSM(MOD_LCTL)
 #define OSM_M OSM(MOD_LALT)
 #define OSM_G OSM(MOD_LGUI)
+#define OSL_LY2 OSL(LY2)
+#define OSL_LY4 OSL(LY4)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* BASE
  */
 [LY0] = LAYOUT_planck_grid(
-        KC_ESC,  KC_Q,    KC_W,    KC_E,   KC_R,     KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-LCTL_T(KC_TAB),  KC_A,    KC_S,    KC_D,   KC_F,     KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        OSM_S,   KC_Z,    KC_X,    KC_C,   KC_V,     KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL(LY2),
-        PLOVER,  E_MAGIT, OSM_G,   OSM_M,  MO(LY1),  KC_SPC,  KC_SPC,  XXXXXXX, KC_LPRN, KC_RPRN, KC_LEFT, KC_RGHT
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL_LY2,
+        KC_GRV,  OSL_LY4, KC_LGUI, KC_LALT, MO(LY1), KC_SPC,  KC_SPC,  KC_LCTL, KC_LPRN, KC_RPRN, KC_LEFT, KC_RGHT
 ),
 
 /* MOVEMENT
@@ -87,65 +88,39 @@ LCTL_T(KC_TAB),  KC_A,    KC_S,    KC_D,   KC_F,     KC_G,    KC_H,    KC_J,    
 [LY1] = LAYOUT_planck_grid(
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
-        _______, ML_CMNT, HOL_X,   E_LAST,  _______, _______, _______, _______, _______, _______, _______, L_R_PAR,
-        _______, _______, _______, _______, _______, _______, _______, _______, DUAL_QU, HOL_QTE, _______, HOL_TRM
+        _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______, _______, _______, _______, _______, _______, L_R_PAR,
+        _______, E_MAGIT, _______, _______, _______, _______, _______, _______, DUAL_QU, HOL_QTE, _______, HOL_TRM
 ),
 
-/* SYM
+/* MUM
  */
 [LY2] = LAYOUT_planck_grid(
         // left hand
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSLS, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* MUSIC
- */
-[MUS] = LAYOUT_planck_grid(
-        KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   ,
-        _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
-        _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        EXT_PLV, _______, _______, KC_C,    KC_V,    _______, _______, KC_N,    KC_M,    _______, _______, _______
+[LY3] = LAYOUT_planck_grid(
+        _______, _______, _______, _______, _______, _______, KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_R, KC_BTN3, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
-
+[LY4] = LAYOUT_planck_grid(
+        _______, _______, _______, _______, _______, _______, KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_R, KC_BTN3, _______, _______,
+        MU_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
 };
-
-#ifdef AUDIO_ENABLE
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if (record->event.pressed) {
     switch (keycode) {
     // dynamically generate these.
-    case PLOVER:
-      #ifdef AUDIO_ENABLE
-        stop_all_notes();
-        PLAY_SONG(plover_song);
-      #endif
-      layer_off(LY1);
-      layer_off(LY2);
-   // layer_off(LY3);
-      layer_on(MUS);
-      if (!eeconfig_is_enabled()) {
-          eeconfig_init();
-      }
-      keymap_config.raw = eeconfig_read_keymap();
-      keymap_config.nkro = 1;
-      eeconfig_update_keymap(keymap_config.raw);
-      return false;
-      break;
-    case EXT_PLV:
-      #ifdef AUDIO_ENABLE
-        PLAY_SONG(plover_gb_song);
-      #endif
-      layer_off(MUS);
-      return false;
-      break;
     case L_R_PAR:
       SEND_STRING("()"SS_TAP(X_LEFT));
       return false;
@@ -328,14 +303,8 @@ void dip_update(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_song);
-        #endif
         layer_on(LY1);
       } else {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
         layer_off(LY1);
       }
       break;
@@ -349,6 +318,27 @@ void dip_update(uint8_t index, bool active) {
         #endif
       }
    }
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+    palClearPad(GPIOB, 8);
+    palClearPad(GPIOB, 9);
+    uint8_t layer = biton32(state);
+    switch (layer) {
+        case LY1:
+            palSetPad(GPIOB, 9);
+            break;
+        case LY2:
+            palSetPad(GPIOB, 8);
+            break;
+        case LY3:
+            palSetPad(GPIOB, 9);
+            palSetPad(GPIOB, 8);
+            break;
+        default:
+            break;
+    }
+    return state;
 }
 
 void matrix_scan_user(void) {
@@ -366,12 +356,3 @@ void matrix_scan_user(void) {
     }
   #endif
 }
-
-/* bool music_mask_user(uint16_t keycode) { */
-/*   switch (keycode) { */
-/*     case EXT_PLV: */
-/*       return false; */
-/*     default: */
-/*       return true; */
-/*   } */
-/* } */
