@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______, _______, _______, _______, _______, _______, L_R_PAR,
-        _______, E_MAGIT, _______, _______, _______, _______, _______, _______, DUAL_QU, HOL_QTE, _______, HOL_TRM
+        _______, E_MAGIT, _______, _______, _______, HOL_R,   HOL_R,   _______, DUAL_QU, HOL_QTE, _______, HOL_TRM
 ),
 
 /* MUM
