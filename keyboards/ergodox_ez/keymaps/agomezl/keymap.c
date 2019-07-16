@@ -5,8 +5,8 @@
 
 #define LY0 0 // Default
 #define LY1 1 // Games
-#define LY2 2 // Mouse
-#define LY3 3 // Movement
+#define LY2 2 // Movement
+#define LY3 3 // Mouse
 #define LY4 4 // symbols
 
 enum custom_keycodes {
@@ -59,7 +59,7 @@ enum custom_keycodes {
 #define OSM_C OSM(MOD_LCTL)
 #define OSM_M OSM(MOD_LALT)
 #define OSM_G OSM(MOD_LGUI)
-#define OSL_LY2 OSL(LY2)
+#define OSL_LY3 OSL(LY3)
 #define OSL_LY4 OSL(LY4)
 
 
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
 
-                                            KC_LALT,   MO(LY3), HOL_H,
+                                            KC_LALT,   MO(LY2), HOL_H,
         // right hand
         KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
@@ -87,12 +87,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 // Movement
-[LY3] = LAYOUT_ergodox(
+[LY2] = LAYOUT_ergodox(
         // left hand
         L_R_BRC, _______, _______, _______, _______, _______, _______,
         _______, KC_VOLD, KC_VOLU, KC_END,  _______, _______, STOP_M,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______,
-        _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY2), _______, REC_M1,
+        _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______, REC_M1,
         _______, _______, _______, _______, _______,
                                                      _______, _______,
                                                               _______,
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______, _______,
                                                       _______,  _______,
                                                                 _______,
-                                             _______, MO(LY3),  _______,
+                                             _______, MO(LY2),  _______,
         // right hand
         _______,  KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         _______,  _______, _______, _______, _______, _______,  _______,
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, KC_LGUI, KC_LCTL,
                                            _______, _______,
                                                     _______,
-                                  KC_SPC,  MO(LY2), KC_LALT,
+                                  KC_SPC,  MO(LY3), KC_LALT,
 
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 // Mouse layout
-[LY2] = LAYOUT_ergodox(
+[LY3] = LAYOUT_ergodox(
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______,
