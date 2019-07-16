@@ -80,10 +80,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
         RUN_M2,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL_LY4,
-                 KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_RCTRL,
+                 KC_LCTL, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        XXXXXXX, KC_SPC, KC_LCTL
+        XXXXXXX, KC_LCTL, KC_SPC
     ),
 
 // Movement
@@ -102,10 +102,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
                  _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         REC_M2,  _______, _______, _______, _______, _______, L_R_PAR,
-                          DUAL_QU, HOL_QTE, _______, _______, HOL_TRM,
+                          _______, _______, _______, _______, HOL_TRM,
         TG(LY1), _______,
         _______,
-        _______, HOL_R, _______
+        _______, _______, HOL_R
     ),
 
 // Symbols
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    _______,
         _______,  _______, _______, _______, _______, _______,  _______,
         KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
-        _______,  _______, _______, _______, _______, _______,  _______,
+        _______,  DUAL_QU, HOL_QTE, ML_CMNT, _______, _______,  _______,
         _______,  _______, _______, _______, _______,
                                                       _______,  _______,
                                                                 _______,
