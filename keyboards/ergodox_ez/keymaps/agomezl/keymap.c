@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         _______, _______, _______, _______, _______, _______, HOL_APP,
         KC_BSPC, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
-                 _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
+                 HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         REC_M2,  _______, _______, _______, _______, _______, L_R_PAR,
                           _______, _______, _______, _______, HOL_TRM,
         TG(LY1), _______,
