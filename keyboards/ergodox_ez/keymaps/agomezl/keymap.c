@@ -3,10 +3,10 @@
 #include "action_layer.h"
 #include "version.h"
 
-#define LY0 0 // default layer
-#define LY1 1 // media keys
-#define LY2 2 // symbols
-#define LY3 3 // symbols
+#define LY0 0 // Default
+#define LY1 1 // Games
+#define LY2 2 // Mouse
+#define LY3 3 // Movement
 #define LY4 4 // symbols
 
 enum custom_keycodes {
@@ -41,46 +41,58 @@ enum custom_keycodes {
   HOL_THN,
   HOL_APP,
   ML_CMNT,
-  NV_SAVE,
-  NV_REC,
-  NV_LAYO
+  DYNAMIC_MACRO_RANGE
 };
 
+// Macros
+#include "dynamic_macro.h"
+
+#define RUN_M1 DYN_MACRO_PLAY1
+#define RUN_M2 DYN_MACRO_PLAY2
+#define REC_M1 DYN_REC_START1
+#define REC_M2 DYN_REC_START2
+#define STOP_M DYN_REC_STOP
+
 // One-shot modifiers definitions
+#define C_TAB LCTL_T(KC_TAB)
 #define OSM_S OSM(MOD_LSFT)
 #define OSM_C OSM(MOD_LCTL)
 #define OSM_M OSM(MOD_LALT)
 #define OSM_G OSM(MOD_LGUI)
+#define OSL_LY2 OSL(LY2)
+#define OSL_LY4 OSL(LY4)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
         //  left hand
         KC_ESC,  HOL_MET, HOL_CSE, HOL_IND, HOL_FS,  HOL_RW,  KC_MINUS,
         KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
- LCTL_T(KC_TAB), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        OSM_S,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(LY2),
-        XXXXXXX, XXXXXXX, XXXXXXX, E_MAGIT, OSM_G,
+        C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RUN_M1,
+        XXXXXXX, XXXXXXX, XXXXXXX, E_MAGIT, KC_LGUI,
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
-                                            OSM_M,   MO(LY3), HOL_H,
+
+                                            KC_LALT,   MO(LY3), HOL_H,
         // right hand
         KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        TG(LY2), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL(LY4),
+        RUN_M2,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL_LY4,
                  KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_RCTRL,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        XXXXXXX, OSM_C,   KC_SPC
+        XXXXXXX, KC_SPC, KC_LCTL
     ),
 
 // Movement
 [LY3] = LAYOUT_ergodox(
         // left hand
         L_R_BRC, _______, _______, _______, _______, _______, _______,
-        _______, KC_VOLD, KC_VOLU, KC_END,  _______, _______, _______,
+        _______, KC_VOLD, KC_VOLU, KC_END,  _______, _______, STOP_M,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______,
-        _______, ML_CMNT, HOL_X,   E_LAST,  _______, _______, E_GO_L,
+        _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY2), _______, REC_M1,
         _______, _______, _______, _______, _______,
                                                      _______, _______,
                                                               _______,
@@ -89,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, HOL_APP,
         KC_BSPC, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
                  _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
-        E_GO_R,  _______, _______, _______, _______, _______, L_R_PAR,
+        REC_M2,  _______, _______, _______, _______, _______, L_R_PAR,
                           DUAL_QU, HOL_QTE, _______, _______, HOL_TRM,
         TG(LY1), _______,
         _______,
-        _______, _______, HOL_R
+        _______, HOL_R, _______
     ),
 
 // Symbols
@@ -125,8 +137,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, KC_H,
        _______, _______, _______, KC_LGUI, KC_LCTL,
-                                           NV_REC,  NV_SAVE,
-                                                    NV_LAYO,
+                                           _______, _______,
+                                                    _______,
                                   KC_SPC,  MO(LY2), KC_LALT,
 
        _______, _______, _______, _______, _______, _______, _______,
@@ -184,6 +196,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if (!process_record_dynamic_macro(keycode, record)) {
+        return false;
+  }
+
   if (record->event.pressed) {
     switch (keycode) {
     // dynamically generate these.
@@ -330,12 +347,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   "print_match [] \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
       return false;
       break;
-    case NV_SAVE:
-      SEND_STRING(SS_LALT(SS_TAP(X_F10)));
-    case NV_REC:
-            SEND_STRING(SS_LALT(SS_TAP(X_F9)));
-    case NV_LAYO:
-      SEND_STRING(SS_LALT("z"));
     }
   }
 
