@@ -60,6 +60,7 @@ enum custom_keycodes {
 #define OSM_M OSM(MOD_LALT)
 #define OSM_G OSM(MOD_LGUI)
 #define OSL_LY3 OSL(LY3)
+#define OSL_LY2 OSL(LY2)
 #define OSL_LY4 OSL(LY4)
 
 
@@ -69,17 +70,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  HOL_MET, HOL_CSE, HOL_IND, HOL_FS,  HOL_RW,  KC_MINUS,
         KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RUN_M1,
-        KC_GRV,  XXXXXXX, XXXXXXX, KC_LGUI, KC_LALT,
+        OSM_S,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RUN_M1,
+        KC_GRV,  XXXXXXX, XXXXXXX, OSM_G,   OSM_M,
                                                      XXXXXXX, XXXXXXX,
                                                               XXXXXXX,
-                                            KC_LALT,   MO(LY2), HOL_H,
+                                            KC_LALT, OSL_LY2, HOL_H,
         // right hand
         KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
         RUN_M2,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL_LY4,
-                 KC_LCTL, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC,
+                 OSM_C,   KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC,
         XXXXXXX, XXXXXXX,
         XXXXXXX,
         XXXXXXX, KC_LCTL, KC_SPC
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         L_R_BRC, _______, _______, _______, _______, _______, _______,
         _______, KC_VOLD, KC_VOLU, KC_END,  _______, _______, STOP_M,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______,
-        _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______, REC_M1,
+        _______, ML_CMNT, HOL_X,   E_LAST,  OSL_LY3, _______, REC_M1,
         _______, _______, E_MAGIT, _______, _______,
                                                      _______, _______,
                                                               _______,
@@ -241,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case ML_CMNT:
       SEND_STRING("(*  *)"SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-      return false;
+      return true;
       break;
     case HOL_X:
       SEND_STRING(// Full screen
@@ -290,11 +291,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HOL_QTE:
       SEND_STRING("` ` "SS_TAP(X_LEFT));
-      return false;
+      return true;
       break;
     case DUAL_QU:
       SEND_STRING("' ' "SS_TAP(X_LEFT));
-      return false;
+      return true;
       break;
     case HOL_THN:
       SEND_STRING("\\\\\\\\ ");
