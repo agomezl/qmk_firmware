@@ -74,6 +74,8 @@ enum custom_keycodes {
 
 
 #define C_TAB LCTL_T(KC_TAB)
+#define C_ENT LCTL_T(KC_ENT)
+#define M_SPC LALT_T(KC_SPC)
 #define OSM_S OSM(MOD_LSFT)
 #define OSM_C OSM(MOD_LCTL)
 #define OSM_M OSM(MOD_LALT)
@@ -87,18 +89,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LY0] = LAYOUT_planck_grid(
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-        C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSL_LY2,
-        KC_GRV,  MO(LY4), KC_LGUI, KC_LALT, MO(LY1), KC_SPC,  KC_SPC,  KC_LCTL, KC_LPRN, KC_RPRN, RUN_M2,  RUN_M1
+        C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+        RUN_M1,  KC_GRV,  KC_QUOT, OSM_M,   MO(LY1), KC_SPC,  KC_SPC,  OSL_LY2, OSM_G,   KC_LOCK, MO(LY4), RUN_M2
 ),
 
 /* MOVEMENT
  */
 [LY1] = LAYOUT_planck_grid(
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
-        KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
-        _______, _______, HOL_X,   E_LAST,  MO(LY3), _______, _______, _______, _______, _______, _______, L_R_PAR,
-        _______, E_MAGIT, _______, _______, _______, HOL_R,   HOL_R,   _______, _______, _______, _______, HOL_TRM
+        _______, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,_______,
+        _______, _______, HOL_X,   E_LAST,  MO(LY3), _______, _______, _______, KC_LPRN, KC_RPRN, _______, L_R_PAR,
+        _______, _______, E_MAGIT, _______, _______, HOL_R,   HOL_R,   _______, _______, _______, _______, HOL_TRM
 ),
 
 /* MUM
@@ -107,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-        _______, DUAL_QU, HOL_QTE, ML_CMNT, _______, _______, _______, _______, KC_RBRC, KC_LBRC, KC_BSLS, _______,
+        _______, DUAL_QU, HOL_QTE, ML_CMNT, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -118,10 +120,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 [LY4] = LAYOUT_planck_grid(
-        _______, _______, _______, _______, _______, _______, KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
-        _______, _______, _______, _______, _______, _______, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, STOP_M,
-        _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_R, KC_BTN3, _______, _______,
-        MU_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, REC_M2,  REC_M1
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, STOP_M,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        REC_M1,  _______, MU_TOG,  _______, _______, _______, _______, _______, _______, MU_TOG,  _______, REC_M2
 ),
 };
 
@@ -135,35 +137,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // dynamically generate these.
     case L_R_PAR:
       SEND_STRING("()"SS_TAP(X_LEFT));
-      return false;
       break;
     case L_R_BRC:
       SEND_STRING("[]"SS_TAP(X_LEFT));
-      return false;
       break;
     case E_GO_L:
       SEND_STRING(SS_LCTRL("x")SS_TAP(X_LEFT));
-      return false;
       break;
     case E_GO_R:
       SEND_STRING(SS_LCTRL("x")SS_TAP(X_RIGHT));
-      return false;
       break;
     case E_LAST:
       SEND_STRING(SS_LCTRL("c "));
-      return false;
       break;
     case E_MAGIT:
       SEND_STRING(SS_LCTRL(SS_LSFT(SS_LALT("g"))));
-      return false;
       break;
     case E_SAVE:
       SEND_STRING(SS_LCTRL("x")SS_LCTRL("s"));
-      return false;
       break;
     case ML_CMNT:
       SEND_STRING("(*  *)"SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_X:
       SEND_STRING(// Full screen
@@ -175,7 +169,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   // Find hol
                   SS_LCTRL("x")"bhol"
                   );
-      return false;
       break;
     case HOL_Y:
       SEND_STRING(// Get hol window
@@ -188,67 +181,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   SS_LCTRL(" ")SS_LALT("<")SS_LCTRL("xx")
                   // Load in HOL
                   SS_LCTRL("uu")SS_LALT("hr")SS_LCTRL(" "));
-      return false;
       break;
     case HOL_P:
       SEND_STRING(SS_LALT("h")"p");
-      return false;
       break;
     case HOL_F:
       SEND_STRING(SS_LALT("h")"e");
-      return false;
       break;
     case HOL_R:
       SEND_STRING(SS_LALT("hr"));
-      return false;
       break;
     case HOL_H:
       SEND_STRING(SS_LALT("h"));
-      return false;
       break;
     case HOL_TRM:
       SEND_STRING("` ` ` ` "SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_QTE:
       SEND_STRING("` ` "SS_TAP(X_LEFT));
-      return false;
       break;
     case DUAL_QU:
       SEND_STRING("' ' "SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_THN:
       SEND_STRING("\\\\\\\\ ");
-      return false;
       break;
     case HOL_APP:
       SEND_STRING(" |> ");
-      return false;
       break;
     case HOL_FS:
       SEND_STRING("fs []"SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_RFS:
       SEND_STRING("rfs []"SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_RW:
       SEND_STRING("rw []"SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_CSE:
       SEND_STRING("Cases_on ` ` "SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_IND:
       SEND_STRING("ho_match_mp_tac");
-      return false;
       break;
     case HOL_MET:
       SEND_STRING("metis_tac []"SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_FND:
       SEND_STRING(// open hol window
@@ -257,7 +234,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   SS_LCTRL("x")SS_TAP(X_RIGHT)
                   // write in it
                   "print_find \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-      return false;
       break;
     case HOL_MCH:
       SEND_STRING(// open hol window
@@ -266,7 +242,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   SS_LCTRL("x")SS_TAP(X_RIGHT)
                   // write in it
                   "print_match [] \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-      return false;
       break;
     }
   }
