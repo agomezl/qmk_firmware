@@ -20,11 +20,12 @@
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
-                    LY0, // BASE
-                    LY1, // MOVE
-                    LY2, // NUM
-                    LY3, // MOUSE
-                    LY4  // SYM
+                    BASE,  // BASE
+                    GAME,  // GAMES
+                    MOVE,  // MOVE
+                    NUM,   // NUM
+                    MOUS,  // MOUSE
+                    SYM    // SYM
 };
 
 enum custom_keycodes {
@@ -72,6 +73,9 @@ enum custom_keycodes {
 #define REC_M2 DYN_REC_START2
 #define STOP_M DYN_REC_STOP
 
+#define MO_MOVE MO(MOVE)
+#define MO_MOUS MO(MOUS)
+#define TG_GAME TG(GAME)
 
 
 #define C_TAB LCTL_T(KC_TAB)
@@ -81,32 +85,32 @@ enum custom_keycodes {
 #define OSM_C OSM(MOD_LCTL)
 #define OSM_M OSM(MOD_LALT)
 #define OSM_G OSM(MOD_LGUI)
-#define OSL_LY2 OSL(LY2)
-#define OSL_LY4 OSL(LY4)
+#define OSL_NUM OSL(NUM)
+#define OSL_SYM OSL(SYM)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* BASE
  */
-[LY0] = LAYOUT_planck_grid(
+[BASE] = LAYOUT_planck_grid(
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-        RUN_M1,  KC_GRV,  KC_QUOT, OSM_M,   MO(LY1), KC_SPC,  KC_SPC,  OSL_LY2, OSM_G,   KC_LOCK, MO(LY4), RUN_M2
+        RUN_M1,  KC_GRV,  KC_QUOT, OSM_M,   MO_MOVE, KC_SPC,  KC_SPC,  OSL_NUM, OSM_G,   KC_LOCK, MO(SYM), RUN_M2
 ),
 
 /* MOVEMENT
  */
-[LY1] = LAYOUT_planck_grid(
+[MOVE] = LAYOUT_planck_grid(
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
-        _______, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,_______,
-        _______, _______, HOL_X,   E_LAST,  MO(LY3), _______, _______, _______, KC_LPRN, KC_RPRN, _______, L_R_PAR,
+        _______, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
+        _______, _______, HOL_X,   E_LAST,  MO_MOUS, _______, _______, _______, KC_LPRN, KC_RPRN, _______, L_R_PAR,
         _______, _______, E_MAGIT, _______, _______, HOL_R,   HOL_R,   GUI_LY,  _______, _______, _______, HOL_TRM
 ),
 
 /* MUM
  */
-[LY2] = LAYOUT_planck_grid(
+[NUM] = LAYOUT_planck_grid(
         // left hand
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
@@ -114,17 +118,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, GUI_LY,  _______, _______, _______, _______, _______, _______, _______
 ),
 
-[LY3] = LAYOUT_planck_grid(
+[MOUS] = LAYOUT_planck_grid(
         _______, _______, _______, _______, _______, _______, KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
         _______, _______, _______, _______, _______, _______, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_R, KC_BTN3, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
-[LY4] = LAYOUT_planck_grid(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+[SYM] = LAYOUT_planck_grid(
+        TG_GAME, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, STOP_M,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         REC_M1,  _______, MU_TOG,  _______, _______, _______, _______, _______, _______, MU_TOG,  _______, REC_M2
+),
+
+/* GAMES
+
+*/
+[GAME] = LAYOUT_planck_grid(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        KC_TAB,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        KC_LCTL, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 };
 
@@ -262,7 +276,7 @@ uint16_t muse_tempo = 50;
 
 void encoder_update(bool clockwise) {
   if (muse_mode) {
-    if (IS_LAYER_ON(LY1)) {
+    if (IS_LAYER_ON(MOVE)) {
       if (clockwise) {
         muse_offset++;
       } else {
@@ -296,9 +310,9 @@ void dip_update(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
-        layer_on(LY1);
+        layer_on(MOVE);
       } else {
-        layer_off(LY1);
+        layer_off(MOVE);
       }
       break;
     case 1:
@@ -318,13 +332,13 @@ uint32_t layer_state_set_user(uint32_t state) {
     palClearPad(GPIOB, 9);
     uint8_t layer = biton32(state);
     switch (layer) {
-        case LY1:
+        case MOVE:
             palSetPad(GPIOB, 9);
             break;
-        case LY2:
+        case NUM:
             palSetPad(GPIOB, 8);
             break;
-        case LY3:
+        case MOUS:
             palSetPad(GPIOB, 9);
             palSetPad(GPIOB, 8);
             break;
