@@ -59,6 +59,7 @@ enum custom_keycodes {
   HOL_THN,
   HOL_APP,
   ML_CMNT,
+  GUI_LY,
   DYNAMIC_MACRO_RANGE
 };
 
@@ -100,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
         _______, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,_______,
         _______, _______, HOL_X,   E_LAST,  MO(LY3), _______, _______, _______, KC_LPRN, KC_RPRN, _______, L_R_PAR,
-        _______, _______, E_MAGIT, _______, _______, HOL_R,   HOL_R,   _______, _______, _______, _______, HOL_TRM
+        _______, _______, E_MAGIT, _______, _______, HOL_R,   HOL_R,   GUI_LY,  _______, _______, _______, HOL_TRM
 ),
 
 /* MUM
@@ -110,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
         _______, DUAL_QU, HOL_QTE, ML_CMNT, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        _______, _______, _______, _______, GUI_LY,  _______, _______, _______, _______, _______, _______, _______
 ),
 
 [LY3] = LAYOUT_planck_grid(
@@ -242,6 +243,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   SS_LCTRL("x")SS_TAP(X_RIGHT)
                   // write in it
                   "print_match [] \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+      break;
+    case GUI_LY:
+      reset_oneshot_layer();
+      clear_keyboard_but_mods();
+      set_oneshot_mods(MOD_LGUI);
       break;
     }
   }
