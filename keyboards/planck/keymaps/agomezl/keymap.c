@@ -95,16 +95,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-        KC_LOCK, _______, KC_LGUI, KC_LALT, MO_MOVE, KC_SPC,  KC_SPC,  OSL_NUM, KC_LPRN, KC_RPRN, MO(SYM), RUN_M1
+        KC_GRV,  E_MAGIT, KC_LGUI, KC_LALT, MO_MOVE, KC_SPC,  KC_SPC,  OSL_NUM, KC_LPRN, KC_RPRN, MO(SYM), RUN_M1
 ),
 
 /* MOVEMENT
  */
 [MOVE] = LAYOUT_planck_grid(
-        KC_GRV,  KC_VOLD, KC_VOLU, KC_END,  _______, HOL_TRM, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
+        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, HOL_TRM, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, _______, HOL_X,   E_LAST,  MO_MOUS, _______, _______, _______, _______, _______, _______, L_R_PAR,
-        _______, _______, E_MAGIT, _______, _______, HOL_R,   HOL_R,   KC_LCTL, DUAL_QU, HOL_QTE, _______, L_R_BRC
+        KC_LOCK, _______, _______, _______, _______, HOL_R,   HOL_R,   KC_LCTL, DUAL_QU, HOL_QTE, _______, _______
 ),
 
 /* MUM
