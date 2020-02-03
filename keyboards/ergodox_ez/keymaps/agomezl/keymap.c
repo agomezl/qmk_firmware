@@ -23,7 +23,6 @@ enum custom_keycodes {
   E_MAGIT,
   E_SAVE,
   HOL_X,
-  HOL_Y,
   HOL_P,
   HOL_F,
   HOL_H,
@@ -34,8 +33,6 @@ enum custom_keycodes {
   HOL_RW,
   HOL_CSE,
   HOL_IND,
-  HOL_FND,
-  HOL_MCH,
   HOL_TRM,
   HOL_QTE,
   HOL_THN,
@@ -100,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______, _______,
         // right hand
         _______, _______, _______, _______, _______, _______, HOL_THN,
-        KC_BSPC, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_APP,
+        KC_BSPC, _______, KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_APP,
                  HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, _______, _______, _______, _______, _______, L_R_PAR,
                           KC_LCTL, DUAL_QU, HOL_QTE, _______, _______,
@@ -257,19 +254,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   );
       return false;
       break;
-    case HOL_Y:
-      SEND_STRING(// Get hol window
-                  SS_LCTRL("x")"1"SS_LALT("h")"3"
-                  // Kill it
-                  SS_LCTRL("x")SS_TAP(X_RIGHT)SS_LCTRL("x")"k"SS_TAP(X_ENTER)"yes"
-                  // Start it again
-                  SS_TAP(X_ENTER)SS_LCTRL("x")"0"SS_LALT("h")"3"
-                  // Select up to point
-                  SS_LCTRL(" ")SS_LALT("<")SS_LCTRL("xx")
-                  // Load in HOL
-                  SS_LCTRL("uu")SS_LALT("hr")SS_LCTRL(" "));
-      return false;
-      break;
     case HOL_P:
       SEND_STRING(SS_LALT("h")"p");
       return false;
@@ -287,11 +271,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case HOL_TRM:
-      SEND_STRING("` ` ` ` "SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+      SEND_STRING("` ` ` ` ");
       return false;
       break;
     case HOL_QTE:
-      SEND_STRING("` ` "SS_TAP(X_LEFT));
+      SEND_STRING("` ` ");
       return true;
       break;
     case DUAL_QU:
@@ -328,24 +312,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HOL_MET:
       SEND_STRING("metis_tac []"SS_TAP(X_LEFT));
-      return false;
-      break;
-    case HOL_FND:
-      SEND_STRING(// open hol window
-                  SS_LCTRL("x")"1"SS_LALT("h")"3"
-                  // move to hol window
-                  SS_LCTRL("x")SS_TAP(X_RIGHT)
-                  // write in it
-                  "print_find \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
-      return false;
-      break;
-    case HOL_MCH:
-      SEND_STRING(// open hol window
-                  SS_LCTRL("x")"1"SS_LALT("h")"3"
-                  // move to hol window
-                  SS_LCTRL("x")SS_TAP(X_RIGHT)
-                  // write in it
-                  "print_match [] \" \" ;"SS_TAP(X_LEFT)SS_TAP(X_LEFT));
       return false;
       break;
     }
