@@ -32,6 +32,7 @@
 #define ENCODER_RESOLUTION 4
 
 #define PERMISSIVE_HOLD
+#define TAPPING_TERM 150
 
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0
