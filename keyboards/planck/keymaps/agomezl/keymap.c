@@ -40,7 +40,6 @@ enum custom_keycodes {
   E_GO_R,
   E_LAST,
   E_MAGIT,
-  E_SAVE,
   HOL_X,
   HOL_P,
   HOL_F,
@@ -164,9 +163,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case E_MAGIT:
       SEND_STRING(SS_LCTRL(SS_LSFT(SS_LALT("g"))));
       break;
-    case E_SAVE:
-      SEND_STRING(SS_LCTRL("x")SS_LCTRL("s"));
-      break;
     case ML_CMNT:
       SEND_STRING("(*  *)"SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
       break;
@@ -231,98 +227,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool muse_mode = false;
-uint8_t last_muse_note = 0;
-uint16_t muse_counter = 0;
-uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
-
-void encoder_update(bool clockwise) {
-  if (muse_mode) {
-    if (IS_LAYER_ON(MOVE)) {
-      if (clockwise) {
-        muse_offset++;
-      } else {
-        muse_offset--;
-      }
-    } else {
-      if (clockwise) {
-        muse_tempo+=1;
-      } else {
-        muse_tempo-=1;
-      }
-    }
-  } else {
-    if (clockwise) {
-      #ifdef MOUSEKEY_ENABLE
-        tap_code(KC_MS_WH_DOWN);
-      #else
-        tap_code(KC_PGDN);
-      #endif
-    } else {
-      #ifdef MOUSEKEY_ENABLE
-        tap_code(KC_MS_WH_UP);
-      #else
-        tap_code(KC_PGUP);
-      #endif
-    }
-  }
-}
-
-void dip_update(uint8_t index, bool active) {
-  switch (index) {
-    case 0:
-      if (active) {
-        layer_on(MOVE);
-      } else {
-        layer_off(MOVE);
-      }
-      break;
-    case 1:
-      if (active) {
-        muse_mode = true;
-      } else {
-        muse_mode = false;
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-        #endif
-      }
-   }
-}
-
-uint32_t layer_state_set_user(uint32_t state) {
-    palClearPad(GPIOB, 8);
-    palClearPad(GPIOB, 9);
+layer_state_t layer_state_set_user(layer_state_t state) {
+    planck_ez_left_led_off();
+    planck_ez_right_led_off();
     uint8_t layer = biton32(state);
     switch (layer) {
         case MOVE:
-            palSetPad(GPIOB, 9);
+            planck_ez_left_led_on();
             break;
         case NUM:
-            palSetPad(GPIOB, 8);
+            planck_ez_right_led_on();
             break;
         case MOUS:
-            palSetPad(GPIOB, 9);
-            palSetPad(GPIOB, 8);
+            planck_ez_right_led_on();
+            planck_ez_left_led_on();
             break;
         default:
             break;
     }
     return state;
-}
-
-void matrix_scan_user(void) {
-  #ifdef AUDIO_ENABLE
-    if (muse_mode) {
-      if (muse_counter == 0) {
-        uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
-        if (muse_note != last_muse_note) {
-          stop_note(compute_freq_for_midi_note(last_muse_note));
-          play_note(compute_freq_for_midi_note(muse_note), 0xF);
-          last_muse_note = muse_note;
-        }
-      }
-      muse_counter = (muse_counter + 1) % muse_tempo;
-    }
-  #endif
 }
