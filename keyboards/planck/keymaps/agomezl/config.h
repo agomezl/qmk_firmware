@@ -32,6 +32,8 @@
 #define ENCODER_RESOLUTION 4
 
 #define PERMISSIVE_HOLD
+#undef  IGNORE_MOD_TAP_INTERRUPT
+
 
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0
