@@ -59,9 +59,6 @@ enum custom_keycodes {
   DYNAMIC_MACRO_RANGE
 };
 
-// Macros
-#include "dynamic_macro.h"
-
 #define RUN_M1 DYN_MACRO_PLAY1
 #define RUN_M2 DYN_MACRO_PLAY2
 #define REC_M1 DYN_REC_START1
@@ -138,9 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
 
   if (record->event.pressed) {
     switch (keycode) {
