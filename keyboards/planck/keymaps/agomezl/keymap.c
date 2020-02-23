@@ -40,6 +40,7 @@ enum custom_keycodes {
   E_GO_R,
   E_LAST,
   E_MAGIT,
+  SONG1,
   HOL_X,
   HOL_P,
   HOL_F,
@@ -67,6 +68,7 @@ enum custom_keycodes {
 
 #define MO_MOVE MO(MOVE)
 #define MO_MOUS MO(MOUS)
+#define MO_NUM  MO(NUM)
 #define TG_GAME TG(GAME)
 
 
@@ -88,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-        KC_GRV,  E_MAGIT, KC_LGUI, KC_LALT, MO_MOVE, KC_SPC,  KC_SPC,  OSL_NUM, KC_LPRN, KC_RPRN, MO(SYM), RUN_M1
+        KC_GRV,  E_MAGIT, KC_LGUI, KC_LALT, MO_MOVE, KC_SPC,  KC_SPC,  MO_NUM, KC_LPRN, KC_RPRN, MO(SYM), RUN_M1
 ),
 
 /* MOVEMENT
@@ -97,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, HOL_TRM, _______, KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  MO_MOUS, _______, _______, _______, _______, _______, _______, L_R_PAR,
-        KC_LOCK, _______, _______, _______, _______, HOL_R,   HOL_R,   KC_LCTL, DUAL_QU, HOL_QTE, _______, _______
+        KC_LOCK, SONG1,   _______, _______, _______, HOL_R,   HOL_R,   KC_LCTL, DUAL_QU, HOL_QTE, _______, _______
 ),
 
 /* MUM
@@ -120,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG_GAME, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, STOP_M,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, MU_TOG,  _______, _______, _______, _______, _______, _______, MU_TOG,  _______, REC_M1
+        MU_MOD,  AU_TOG,  MU_TOG,  _______, _______, _______, _______, _______, AU_TOG,  MU_TOG,  _______, REC_M1
 ),
 
 /* GAMES
@@ -133,6 +135,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TG_GAME
 ),
 };
+
+#undef MARIO_GAMEOVER
+#define MARIO_GAMEOVER \
+    HD_NOTE(_C5 ), \
+    HD_NOTE(_G4 ), \
+    H__NOTE(_E4 ), \
+    H__NOTE(_A4 ), \
+    H__NOTE(_B4 ), \
+    H__NOTE(_A4 ), \
+    H__NOTE(_AF4), \
+    H__NOTE(_BF4), \
+    H__NOTE(_AF4), \
+    WD_NOTE(_G4 ),
+
+#define E1M1  \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E4 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_D4 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_C4 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_BF3), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_B3 ), \
+    Q__NOTE(_C4 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E4 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_D4 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_C4 ), \
+    Q__NOTE(_E3 ), \
+    Q__NOTE(_E3 ), \
+    H__NOTE(_BF3),
+
+float mysong [][2] = SONG(E1M1);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -195,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HOL_THN:
       SEND_STRING("\\\\\\\\ ");
       break;
-    case HOL_APP:
+       case HOL_APP:
       SEND_STRING(" |> ");
       break;
     case HOL_FS:
@@ -215,6 +262,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HOL_MET:
       SEND_STRING("metis_tac []"SS_TAP(X_LEFT));
+      break;
+    case SONG1:
+      if (is_audio_on()) {
+        PLAY_SONG(mysong);
+      } else {
+        audio_on();
+        PLAY_SONG(mysong);
+        audio_off();
+      }
       break;
     }
   }
