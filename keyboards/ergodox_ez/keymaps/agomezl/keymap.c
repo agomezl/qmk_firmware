@@ -37,12 +37,8 @@ enum custom_keycodes {
   HOL_QTE,
   HOL_THN,
   HOL_APP,
-  ML_CMNT,
-  DYNAMIC_MACRO_RANGE
+  ML_CMNT
 };
-
-// Macros
-#include "dynamic_macro.h"
 
 #define RUN_M1 DYN_MACRO_PLAY1
 #define RUN_M2 DYN_MACRO_PLAY2
@@ -194,11 +190,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-  }
-
   if (record->event.pressed) {
     switch (keycode) {
     // dynamically generate these.
