@@ -48,7 +48,13 @@ enum custom_keycodes {
 
 // One-shot modifiers definitions
 #define C_TAB LCTL_T(KC_TAB)
-#define C_ENT LCTL_T(KC_ENT)
+#define C_ENT RCTL_T(KC_ENT)
+#define S_LPAR RSFT_T(KC_LPRN)
+#define S_RPAR LSFT_T(KC_RPRN)
+#define M_BSPC LALT_T(KC_BSPC)
+#define G_ENT LGUI_T(KC_ENT)
+
+
 #define OSM_S OSM(MOD_LSFT)
 #define OSM_C OSM(MOD_LCTL)
 #define OSM_M OSM(MOD_LALT)
@@ -64,20 +70,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  HOL_MET, HOL_CSE, HOL_IND, HOL_FS,  HOL_RW,  KC_MINUS,
         KC_QUOT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LPRN,
+        S_LPAR,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LPRN,
         KC_GRV,  XXXXXXX, E_MAGIT, XXXXXXX, KC_LGUI,
                                                      RUN_M1,  STOP_M,
                                                               XXXXXXX,
-                                            KC_LALT, MO(LY2), HOL_H,
+                                            M_BSPC,  MO(LY2), HOL_H,
         // right hand
         KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
-        KC_RPRN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+        KC_RPRN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, S_RPAR,
                  OSL_LY4, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC,
         STOP_M,  RUN_M2,
         XXXXXXX,
-        XXXXXXX, KC_LCTL, KC_SPC
+        XXXXXXX, G_ENT,   KC_SPC
     ),
 
 // Movement
@@ -99,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_LCTL, DUAL_QU, HOL_QTE, _______, _______,
         TG(LY1), REC_M2,
         _______,
-        _______, _______, HOL_R
+        _______, KC_LCTL, HOL_R
     ),
 
 // Symbols
@@ -114,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                 _______,
                                              _______, MO(LY2),  _______,
         // right hand
-        _______,  KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        RESET,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         _______,  _______, _______, _______, _______, _______,  _______,
                   KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS, KC_EQL,
         _______,  _______, _______, _______, _______, KC_BSLS,  _______,
