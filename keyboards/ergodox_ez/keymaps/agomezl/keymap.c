@@ -280,7 +280,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
       break;
     case HOL_THN:
-      SEND_STRING("\\\\\\\\ ");
+      SEND_STRING("\\\\ ");
       return false;
       break;
     case HOL_APP:
