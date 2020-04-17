@@ -38,6 +38,7 @@ enum custom_keycodes {
   HOL_TRM,
   HOL_QTE,
   HOL_THN,
+  HOL_ENT,
   HOL_APP,
   ML_CMNT
 };
@@ -68,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
         //  left hand
         KC_ESC,  HOL_MET, HOL_CSE, HOL_IND, HOL_FS,  HOL_RW,  KC_MINUS,
-        KC_QUOT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HOL_APP,
+        KC_QUOT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LPRN,
         KC_GRV,  XXXXXXX, E_MAGIT, XXXXXXX, KC_LGUI,
@@ -76,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               XXXXXXX,
                                             M_BSPC,  MO(LY2), HOL_QTE,
         // right hand
-        KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
-        HOL_THN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        HOL_THN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    HOL_APP,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_RPRN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                  OSL_LY4, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC,
@@ -99,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______, _______,
         // right hand
         _______, _______, _______, _______, _______, _______, _______,
-        _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
+        HOL_ENT, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
                  HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, _______, _______, _______, _______, _______, L_R_PAR,
                           KC_LCTL, DUAL_QU, DUAL_GR, _______, _______,
@@ -292,6 +293,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HOL_THN:
       SEND_STRING("\\\\ ");
+      return false;
+      break;
+    case HOL_ENT:
+      SEND_STRING(SS_TAP(X_ENTER)"\\\\ "SS_TAP(X_TAB));
       return false;
       break;
     case HOL_APP:
