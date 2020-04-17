@@ -17,6 +17,7 @@ enum custom_keycodes {
   L_R_BRC,
   L_R_PAR,
   DUAL_QU,
+  DUAL_GR,
   E_GO_L,
   E_GO_R,
   E_LAST,
@@ -26,6 +27,7 @@ enum custom_keycodes {
   HOL_P,
   HOL_F,
   HOL_H,
+  HOL_Y,
   HOL_R,
   HOL_FS,
   HOL_RFS,
@@ -54,7 +56,6 @@ enum custom_keycodes {
 #define M_BSPC LALT_T(KC_BSPC)
 #define G_ENT LGUI_T(KC_ENT)
 
-
 #define OSM_S OSM(MOD_LSFT)
 #define OSM_C OSM(MOD_LCTL)
 #define OSM_M OSM(MOD_LALT)
@@ -63,34 +64,33 @@ enum custom_keycodes {
 #define OSL_LY2 OSL(LY2)
 #define OSL_LY4 OSL(LY4)
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LY0] = LAYOUT_ergodox(  // layer 0 : default
         //  left hand
         KC_ESC,  HOL_MET, HOL_CSE, HOL_IND, HOL_FS,  HOL_RW,  KC_MINUS,
-        KC_QUOT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
+        KC_QUOT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HOL_APP,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LPRN,
         KC_GRV,  XXXXXXX, E_MAGIT, XXXXXXX, KC_LGUI,
                                                      RUN_M1,  STOP_M,
                                                               XXXXXXX,
-                                            M_BSPC,  MO(LY2), HOL_H,
+                                            M_BSPC,  MO(LY2), HOL_QTE,
         // right hand
-        KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
+        HOL_THN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_RPRN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                  OSL_LY4, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC,
         STOP_M,  RUN_M2,
         XXXXXXX,
-        XXXXXXX, G_ENT,   KC_SPC
+        XXXXXXX, G_ENT, KC_SPC
     ),
 
 // Movement
 [LY2] = LAYOUT_ergodox(
         // left hand
         L_R_BRC, _______, _______, _______, _______, _______, _______,
-        _______, KC_VOLD, KC_VOLU, KC_END,  _______, HOL_TRM, _______,
+        _______, KC_VOLD, KC_VOLU, KC_END,  HOL_THN, HOL_TRM, _______,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______, _______,
         _______, _______, _______, _______, _______,
@@ -98,11 +98,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               _______,
                                             _______, _______, _______,
         // right hand
-        _______, _______, _______, _______, _______, _______, HOL_THN,
-        KC_BSPC, _______, KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_APP,
+        _______, _______, _______, _______, _______, _______, _______,
+        _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
                  HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, _______, _______, _______, _______, _______, L_R_PAR,
-                          KC_LCTL, DUAL_QU, HOL_QTE, _______, _______,
+                          KC_LCTL, DUAL_QU, DUAL_GR, _______, _______,
         TG(LY1), REC_M2,
         _______,
         _______, KC_LCTL, HOL_R
@@ -259,6 +259,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LALT("h")"e");
       return false;
       break;
+    case HOL_Y:
+      SEND_STRING(SS_LCTRL(" ")SS_LALT("<")
+                  SS_LCTRL("x")SS_LCTRL("x")
+                  SS_LALT("h")"H"
+                  "new" SS_DELAY(100) SS_TAP(X_ENTER));
+      return false;
+      break;
     case HOL_R:
       SEND_STRING(SS_LALT("hr"));
       return false;
@@ -268,15 +275,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case HOL_TRM:
-      SEND_STRING("` ` ` ` ");
+      SEND_STRING("` ` ");
       return false;
       break;
     case HOL_QTE:
-      SEND_STRING("` ` ");
+      SEND_STRING("` ");
       return true;
       break;
     case DUAL_QU:
       SEND_STRING("' ' "SS_TAP(X_LEFT));
+      return true;
+      break;
+    case DUAL_GR:
+      SEND_STRING("` ` "SS_TAP(X_LEFT));
       return true;
       break;
     case HOL_THN:
@@ -300,7 +311,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case HOL_CSE:
-      SEND_STRING("Cases_on ` ` "SS_TAP(X_LEFT));
+      SEND_STRING("Cases_on ` ");
       return false;
       break;
     case HOL_IND:
