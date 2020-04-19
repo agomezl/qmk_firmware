@@ -40,7 +40,15 @@ enum custom_keycodes {
   HOL_THN,
   HOL_ENT,
   HOL_APP,
-  ML_CMNT
+  ML_CMNT,
+  NV_OVER,
+  NV_REC,
+  NV_SAVE,
+  NV_TOGL,
+  NV_STRM,
+  NV_STOP,
+  NV_CAM,
+  NV_MIC
 };
 
 #define RUN_M1 DYN_MACRO_PLAY1
@@ -84,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  OSL_LY4, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC,
         STOP_M,  RUN_M2,
         XXXXXXX,
-        XXXXXXX, G_ENT, KC_SPC
+        TO(LY1), G_ENT, KC_SPC
     ),
 
 // Movement
@@ -104,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, _______, _______, _______, _______, _______, L_R_PAR,
                           KC_LCTL, DUAL_QU, DUAL_GR, _______, _______,
-        TG(LY1), REC_M2,
+        _______, REC_M2,
         _______,
         _______, KC_LCTL, HOL_R
     ),
@@ -137,19 +145,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______, KC_Y,
        KC_TAB,  _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, KC_H,
-       KC_LCTL, _______, _______, KC_LGUI, KC_LCTL,
-                                           KC_M,    KC_N,
+       KC_LCTL, _______, KC_LGUI, KC_LALT, KC_LCTL,
+                                           _______, MO(LY2),
                                                     _______,
-                                  KC_SPC,  MO(LY2), KC_LALT,
+                                  KC_SPC,  KC_M,    KC_N,
 
-       _______, _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, _______, _______, _______, _______,
+       NV_SAVE, NV_TOGL, _______, _______, _______, _______, _______,
+       NV_REC,  _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, _______, _______, _______, _______,
-                         _______, _______, _______, _______, _______,
-       TG(LY1), _______,
-       _______,
-       _______, _______,  _______
+       NV_OVER, _______, _______, _______, _______, _______, _______,
+                _______, _______, _______, _______, TO(LY0),
+       NV_CAM,  NV_MIC,
+       NV_STOP,
+       NV_STRM, _______, _______
 ),
 
 // Mouse layout
@@ -325,6 +333,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HOL_MET:
       SEND_STRING("metis_tac []"SS_TAP(X_LEFT));
+      return false;
+      break;
+    case NV_OVER:
+      SEND_STRING(SS_LALT("z"));
+      return false;
+      break;
+    case NV_REC:
+      SEND_STRING(SS_LALT(SS_TAP(X_F9)));
+      return false;
+      break;
+    case NV_SAVE:
+      SEND_STRING(SS_LALT(SS_TAP(X_F10)));
+      return false;
+      break;
+    case NV_TOGL:
+      SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_F10))));
+      return false;
+      break;
+    case NV_STRM:
+      SEND_STRING(SS_LALT(SS_TAP(X_F8)));
+      return false;
+      break;
+    case NV_STOP:
+      SEND_STRING(SS_LALT(SS_TAP(X_F7)));
+      return false;
+      break;
+    case NV_CAM:
+      SEND_STRING(SS_LALT(SS_TAP(X_F6)));
+      return false;
+      break;
+    case NV_MIC:
+      SEND_STRING(SS_LCTRL(SS_LALT("m")));
       return false;
       break;
     }
