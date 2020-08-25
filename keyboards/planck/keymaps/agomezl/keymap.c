@@ -45,6 +45,7 @@ enum custom_keycodes {
   HOL_P,
   HOL_F,
   HOL_H,
+  HOL_Y,
   HOL_R,
   HOL_FS,
   HOL_RFS,
@@ -96,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MOVEMENT
  */
 [MOVE] = LAYOUT_planck_grid(
-        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, HOL_TRM, _______, KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
+        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  _______, HOL_TRM, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   HOL_THN,
         KC_QUOT, KC_HOME, KC_SPC,  KC_DEL,  HOL_F  , _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  MO_MOUS, _______, _______, _______, _______, _______, _______, L_R_PAR,
         KC_LOCK, SONG1,   _______, _______, _______, HOL_R,   HOL_R,   KC_LCTL, DUAL_QU, HOL_QTE, _______, _______
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 [SYM] = LAYOUT_planck_grid(
-        TG_GAME, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        TG_GAME, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, STOP_M,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         MU_MOD,  AU_TOG,  MU_TOG,  _______, _______, _______, _______, _______, AU_TOG,  MU_TOG,  _______, REC_M1
@@ -230,17 +231,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case HOL_H:
       SEND_STRING(SS_LALT("h"));
       break;
+    case HOL_Y:
+      SEND_STRING(SS_LCTRL(" ")SS_LALT("<")
+                  SS_LCTRL("x")SS_LCTRL("x")
+                  SS_LALT("h")SS_LSFT("H")
+                  "new" SS_DELAY(100) SS_TAP(X_ENTER));
+      return false;
+      break;
     case HOL_TRM:
       SEND_STRING("` ` ` ` ");
       break;
     case HOL_QTE:
-      SEND_STRING("` ` ");
+      SEND_STRING("` ");
       break;
     case DUAL_QU:
       SEND_STRING("' ' "SS_TAP(X_LEFT));
       break;
     case HOL_THN:
-      SEND_STRING("\\\\\\\\ ");
+      SEND_STRING("\\\\ ");
       break;
        case HOL_APP:
       SEND_STRING(" |> ");
