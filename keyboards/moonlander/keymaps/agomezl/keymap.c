@@ -96,7 +96,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LY0] = LAYOUT_moonlander(
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    MU_MOD,  /* */ MU_TOG,  KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    RGB_M_K, /* */ RGB_M_B, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DUAL_GR, /* */ DUAL_QU, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    L_R_BRC, /* */ L_R_CRL, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             /* */          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
         KC_GRV,  RGB_MOD, E_MAGIT, RGB_TOG, KC_LGUI,          RUN_M1,  /* */ RUN_M2,           OSL_LY2, KC_UP,   KC_DOWN, KC_RGHT, KC_LEFT,
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [LY1] = LAYOUT_moonlander(
         _______, _______, _______, _______, _______, _______, RESET,   /* */ _______, _______, _______, _______, _______, _______, _______,
-        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  HOL_THN, HOL_TRM, _______, /* */ _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
+        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  HOL_APP, HOL_THN, _______, /* */ _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
         KC_QUOT, KC_HOME, KC_BSPC,  KC_DEL,  HOL_F , _______, _______, /* */ _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______,          /* */          _______, _______, _______, _______, _______, L_R_PAR,
         _______, _______, _______, KC_BTN1, KC_BTN2,          REC_M1,  /* */ REC_M2,           _______, DUAL_QU, DUAL_GR, _______, _______,
