@@ -35,7 +35,10 @@ enum custom_keycodes {
   L_R_BRC,
   L_R_CRL,
   L_R_PAR,
+  WEB_TAG,
+  WEB_END,
   DUAL_QU,
+  DUAL_Q2,
   DUAL_GR,
   E_GO_L,
   E_GO_R,
@@ -96,19 +99,19 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LY0] = LAYOUT_moonlander(
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    MU_MOD,  /* */ MU_TOG,  KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DUAL_GR, /* */ DUAL_QU, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-        C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    L_R_BRC, /* */ L_R_CRL, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HOL_TRM, /* */ DUAL_QU, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    L_R_BRC, /* */ WEB_TAG, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             /* */          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
         KC_GRV,  RGB_MOD, E_MAGIT, RGB_TOG, KC_LGUI,          RUN_M1,  /* */ RUN_M2,           OSL_LY2, KC_UP,   KC_DOWN, KC_RGHT, KC_LEFT,
                                             KC_LALT, MO(LY1), KC_LBRC, /* */ KC_RBRC, KC_BSPC, KC_SPC
     ),
 
     [LY1] = LAYOUT_moonlander(
-        _______, _______, _______, _______, _______, _______, RESET,   /* */ _______, _______, _______, _______, _______, _______, _______,
-        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  HOL_APP, HOL_THN, _______, /* */ _______, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
-        KC_QUOT, KC_HOME, KC_BSPC,  KC_DEL,  HOL_F , _______, _______, /* */ _______, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
+        _______, _______, _______, _______, _______, _______, RESET,   /* */ STOP_M,  _______, _______, _______, _______, _______, _______,
+        L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  HOL_APP, HOL_THN, DUAL_GR, /* */ DUAL_Q2, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
+        KC_QUOT, KC_HOME, KC_BSPC,  KC_DEL,  HOL_F , _______, L_R_CRL, /* */ WEB_END, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
         _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______,          /* */          _______, _______, _______, _______, _______, L_R_PAR,
-        _______, _______, _______, KC_BTN1, KC_BTN2,          REC_M1,  /* */ REC_M2,           _______, DUAL_QU, DUAL_GR, _______, _______,
+        _______, _______, _______, KC_BTN1, KC_BTN2,          REC_M1,  /* */ REC_M2,           _______, _______, _______, _______, _______,
                                             _______, _______, _______, /* */ _______, KC_LCTL, HOL_R
     ),
 
@@ -222,6 +225,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING("()"SS_TAP(X_LEFT));
           return false;
           break;
+        case WEB_END:
+          SEND_STRING("</>"SS_TAP(X_LEFT));
+          return false;
+          break;
+        case WEB_TAG:
+          SEND_STRING("<>"SS_TAP(X_LEFT));
+          return false;
+          break;
         case L_R_CRL:
           SEND_STRING("{}"SS_TAP(X_LEFT));
           return false;
@@ -290,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
           break;
         case HOL_TRM:
-          SEND_STRING("` ` ");
+          SEND_STRING("` ` "SS_TAP(X_LEFT));
           return false;
           break;
         case HOL_QTE:
@@ -301,8 +312,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING("' ' "SS_TAP(X_LEFT));
           return true;
           break;
+        case DUAL_Q2:
+          SEND_STRING("\" \" "SS_TAP(X_LEFT));
+          return true;
+          break;
         case DUAL_GR:
-          SEND_STRING("` ` "SS_TAP(X_LEFT));
+          SEND_STRING("` ` ` ` "SS_TAP(X_LEFT)SS_TAP(X_LEFT));
           return true;
           break;
         case HOL_THN:
