@@ -409,16 +409,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case C_S_OSM:
           set_oneshot_mods(MOD_LCTL | MOD_LSFT);
           return false;
-          break;    
+          break;
         case MEH_OSM:
           set_oneshot_mods(MOD_LCTL | MOD_LALT | MOD_LSFT);
           return false;
-          break;    
+          break;
         case OSM_CLR:
           clear_oneshot_mods();
           return false;
-          break;                      
-        }      
+          break;
+        }
     }
     return true;
 }
