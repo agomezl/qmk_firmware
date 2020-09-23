@@ -112,16 +112,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HOL_TRM, /* */ DUAL_QU, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    L_R_BRC, /* */ WEB_TAG, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             /* */          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-        KC_GRV,  RGB_MOD, E_MAGIT, RGB_TOG, OSM_G,            RUN_M1,  /* */ RUN_M2,             OSL_LY2, KC_UP,   KC_DOWN, KC_LEFT, KC_RIGHT,
+        KC_GRV,  RGB_MOD, E_MAGIT, RGB_TOG, OSM_G,            RUN_M1,  /* */ RUN_M2,           OSL_LY2, KC_UP,   KC_DOWN, KC_LEFT, KC_RIGHT,
                                             OSM_M, OSL_LY1,   KC_LBRC, /* */ KC_RBRC, KC_BSPC, KC_SPC
     ),
 
     [LY1] = LAYOUT_moonlander(
         _______, _______, _______, _______, _______, _______, RESET,   /* */ STOP_M,  _______, _______, _______, _______, _______, _______,
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  HOL_APP, HOL_THN, DUAL_GR, /* */ DUAL_Q2, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
-        KC_QUOT, KC_HOME, KC_BSPC,  KC_DEL,  HOL_F , KC_ESC, L_R_CRL, /* */ WEB_END, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
-        C_S_OSM, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), OSM_CLR,          /* */          _______, _______, _______, _______, _______, L_R_PAR,
-        MEH_OSM, _______, _______, _______, _______,          REC_M1,  /* */ REC_M2,           _______, _______, _______, _______, _______,
+        KC_QUOT, KC_HOME, KC_BSPC,  KC_DEL,  HOL_F , KC_ESC,  L_R_CRL, /* */ WEB_END, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
+        OSM_S,   ML_CMNT, HOL_X,   E_LAST,  MO(LY3), OSM_CLR,          /* */          _______, _______, _______, _______, _______, L_R_PAR,
+        C_S_OSM, _______, _______, _______, _______,          REC_M1,  /* */ REC_M2,           MEH_OSM, _______, _______, _______, _______,
                                             C_M_OSM, _______, WIN_D_L, /* */ WIN_D_R, OSM_C,   HOL_R
     ),
 
@@ -129,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RGB_VAD, /* */ RGB_VAI, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         _______, _______, _______, KC_MS_U, _______, _______, RGB_HUD, /* */ RGB_HUI, _______, _______, _______, _______, _______, _______,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    RGB_SAD, /* */ RGB_SAI, KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-        _______, _______, _______, _______, _______, OSM_CLR,                         _______, _______, _______, _______, KC_BSLS, _______,
-        _______, _______, _______, _______, _______,          RGB_MOD,       RGB_TOG,          _______, _______, _______, _______, _______,
+        OSM_S,   _______, _______, _______, _______, OSM_CLR,                         _______, _______, _______, _______, KC_BSLS, _______,
+        M_S_OSM, _______, _______, _______, _______,          RGB_MOD,       RGB_TOG,          _______, _______, _______, _______, _______,
                                             _______, OSM_C,   _______,       _______, _______, _______
     ),
 
