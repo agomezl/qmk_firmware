@@ -26,7 +26,7 @@ enum layers {
     LY1,  // movement
     LY2,  // symbols
     LY3,  // media keys
-    LY4,
+    LY4,  // games
 };
 
 enum custom_keycodes {
@@ -70,12 +70,7 @@ enum custom_keycodes {
   NV_STRM,
   NV_STOP,
   NV_CAM,
-  NV_MIC,
-  C_M_OSM,
-  M_S_OSM,
-  C_S_OSM,
-  MEH_OSM,
-  OSM_CLR
+  NV_MIC
 };
 
 #define RUN_M1 DYN_MACRO_PLAY1
@@ -96,14 +91,14 @@ enum custom_keycodes {
 
 
 
-#define OSM_S OSM(MOD_LSFT)
-#define OSM_C OSM(MOD_LCTL)
-#define OSM_M OSM(MOD_LALT)
-#define OSM_G OSM(MOD_LGUI)
-#define OSL_LY3 OSL(LY3)
-#define OSL_LY2 OSL(LY2)
-#define OSL_LY1 OSL(LY1)
-#define OSL_LY4 OSL(LY4)
+/* #define OSM_S OSM(MOD_LSFT) */
+/* #define OSM_C OSM(MOD_LCTL) */
+/* #define OSM_M OSM(MOD_LALT) */
+/* #define OSM_G OSM(MOD_LGUI) */
+/* #define OSL_LY3 OSL(LY3) */
+/* #define OSL_LY2 OSL(LY2) */
+/* #define OSL_LY1 OSL(LY1) */
+/* #define OSL_LY4 OSL(LY4) */
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -112,36 +107,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HOL_TRM, /* */ DUAL_QU, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    L_R_BRC, /* */ WEB_TAG, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             /* */          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-        KC_GRV,  RGB_MOD, E_MAGIT, RGB_TOG, OSM_G,            RUN_M1,  /* */ RUN_M2,           OSL_LY2, KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT,
-                                            OSM_M, OSL_LY1,   KC_LBRC, /* */ KC_RBRC, KC_BSPC, KC_SPC
+        KC_GRV,  RGB_MOD, E_MAGIT, RGB_TOG, KC_LGUI,          RUN_M1,  /* */ TG(LY4),          MO(LY2), KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT,
+                                            KC_LALT, MO(LY1), KC_LBRC, /* */ KC_RBRC, KC_BSPC, KC_SPC
     ),
 
     [LY1] = LAYOUT_moonlander(
         _______, _______, _______, _______, _______, _______, RESET,   /* */ STOP_M,  _______, _______, _______, _______, _______, _______,
         L_R_BRC, KC_VOLD, KC_VOLU, KC_END,  HOL_APP, HOL_THN, DUAL_GR, /* */ DUAL_Q2, HOL_Y,   KC_PGUP, KC_UP,   KC_PGDN, HOL_P,   _______,
         KC_QUOT, KC_HOME, KC_BSPC,  KC_DEL,  HOL_F , KC_ESC,  L_R_CRL, /* */ WEB_END, HOL_H,   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______,
-        OSM_S,   ML_CMNT, HOL_X,   E_LAST,  MO(LY3), OSM_CLR,          /* */          _______, _______, _______, _______, _______, L_R_PAR,
-        C_S_OSM, _______, _______, _______, _______,          REC_M1,  /* */ REC_M2,           MEH_OSM, _______, _______, _______, _______,
-                                            C_M_OSM, _______, WIN_D_L, /* */ WIN_D_R, OSM_C,   HOL_R
+        _______, ML_CMNT, HOL_X,   E_LAST,  MO(LY3), _______,          /* */          _______, _______, _______, _______, _______, L_R_PAR,
+        _______, _______, _______, _______, _______,          REC_M1,  /* */ REC_M2,           _______, _______, _______, _______, _______,
+                                            _______, _______, WIN_D_L, /* */ WIN_D_R, KC_RCTL, HOL_R
     ),
 
     [LY2] = LAYOUT_moonlander(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RGB_VAD, /* */ RGB_VAI, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         _______, _______, _______, KC_MS_U, _______, _______, RGB_HUD, /* */ RGB_HUI, _______, _______, _______, _______, _______, _______,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    RGB_SAD, /* */ RGB_SAI, KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-        OSM_S,   _______, _______, _______, _______, OSM_CLR,                         _______, _______, _______, _______, KC_BSLS, _______,
-        M_S_OSM, _______, _______, _______, _______,          RGB_MOD,       RGB_TOG,          _______, _______, _______, _______, _______,
-                                            _______, OSM_C,   _______,       _______, _______, _______
+        _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, KC_BSLS, _______,
+        _______, _______, _______, _______, _______,          RGB_MOD,       RGB_TOG,          _______, _______, _______, _______, _______,
+                                            _______, KC_LCTL, _______,       _______, _______, _______
     ),
 
     [LY3] = LAYOUT_moonlander(
         _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,           _______, KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,           _______, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
-        _______, _______, _______, _______, _______, OSM_CLR,                             KC_WH_L, KC_WH_R, KC_BTN3, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                             KC_WH_L, KC_WH_R, KC_BTN3, _______, _______, _______,
         _______, _______, _______, _______, _______,          _______,           _______,          _______, _______, _______, _______, _______,
                                             _______, _______, _______,           _______, _______, _______
     ),
+
+    [LY4] = LAYOUT_moonlander(
+        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    /* */ MU_TOG,  KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
+        KC_F7,   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    /* */ DUAL_QU, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        KC_F8,   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    /* */ WEB_TAG, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
+        KC_F9,   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,             /* */          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+        KC_F10,  KC_F11,  KC_F12,  KC_F13,  KC_LALT,         NV_SAVE,  /* */ TG(LY4),          MO(LY2), KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT,
+                                            KC_SPC,  KC_TAB, KC_M,     /* */ KC_RBRC, KC_BSPC, KC_SPC
+    ),
+
 
 };
 
@@ -166,7 +171,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             ML_LED_3(1);
             break;
         case 4:
-            ML_LED_4(1);
             break;
         case 5:
             ML_LED_5(1);
@@ -185,11 +189,36 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #define LEDMAP(C) {C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C,C}
 #define COLOR1 {32,255,255}
 #define COLOR2 {127,248,237}
+#define C_NO   {0,0,0}
+#define C_BLUE {146,224,255}
+#define C_YELO {32,255,234}
+#define C_PURP {169,120,255}
+#define C_RED  {0,204,255}
+
 
 
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
   [1] = LEDMAP(COLOR1),
   [2] = LEDMAP(COLOR2),
+  [4] = {C_BLUE, C_BLUE, C_BLUE, C_BLUE, C_BLUE,
+         C_BLUE, C_YELO, C_YELO, C_YELO, C_BLUE,
+         C_BLUE, C_PURP, C_RED,  C_PURP, C_BLUE,
+         C_BLUE, C_RED,  C_RED,  C_PURP, C_BLUE,
+         C_BLUE, C_PURP, C_RED,  C_PURP, C_YELO,
+         C_BLUE, C_PURP, C_PURP, C_PURP,
+         C_BLUE, C_PURP, C_PURP,
+                                 C_YELO, C_YELO, C_NO,
+                                 C_RED,
+         /*********************************************/
+                                 C_NO,
+                                 C_NO,   C_NO,   C_NO,
+         C_NO,   C_NO,   C_NO,
+         C_NO,   C_NO,   C_NO,   C_NO,
+         C_NO,   C_NO,   C_NO,   C_NO,   C_NO,
+         C_NO,   C_NO,   C_NO,   C_NO,   C_NO,
+         C_NO,   C_NO,   C_NO,   C_NO,   C_NO,
+         C_NO,   C_NO,   C_NO,   C_NO,   C_NO,
+         C_NO,   C_NO,   C_NO,   C_NO,   C_NO },
 };
 
 void set_layer_color(int layer) {
@@ -217,6 +246,9 @@ void rgb_matrix_indicators_user(void) {
       break;
     case 2:
       set_layer_color(2);
+      break;
+    case 4:
+      set_layer_color(4);
       break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
@@ -396,26 +428,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case NV_MIC:
           SEND_STRING(SS_LCTRL(SS_LALT("m")));
-          return false;
-          break;
-        case C_M_OSM:
-          set_oneshot_mods(MOD_LCTL | MOD_LALT);
-          return false;
-          break;
-        case M_S_OSM:
-          set_oneshot_mods(MOD_LALT | MOD_LSFT);
-          return false;
-          break;
-        case C_S_OSM:
-          set_oneshot_mods(MOD_LCTL | MOD_LSFT);
-          return false;
-          break;
-        case MEH_OSM:
-          set_oneshot_mods(MOD_LCTL | MOD_LALT | MOD_LSFT);
-          return false;
-          break;
-        case OSM_CLR:
-          clear_oneshot_mods();
           return false;
           break;
         }
