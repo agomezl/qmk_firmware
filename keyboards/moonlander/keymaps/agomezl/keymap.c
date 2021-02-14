@@ -27,6 +27,7 @@ enum layers {
     LY2,  // symbols
     LY3,  // media keys
     LY4,  // games
+    LY5,  // settings
 };
 
 enum custom_keycodes {
@@ -78,6 +79,8 @@ enum custom_keycodes {
 #define REC_M1 DYN_REC_START1
 #define REC_M2 DYN_REC_START2
 #define STOP_M DYN_REC_STOP
+#define RGB_RMD RGB_RMOD
+
 
 // One-shot modifiers definitions
 #define C_TAB   LCTL_T(KC_TAB)
@@ -107,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HOL_TRM, /* */ DUAL_QU, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         C_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    L_R_BRC, /* */ WEB_TAG, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, C_ENT,
         KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             /* */          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-        KC_GRV,  RGB_MOD, E_MAGIT, RGB_TOG, KC_LGUI,          RUN_M1,  /* */ TG(LY4),          MO(LY2), KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT,
+        KC_GRV,  RGB_TOG, E_MAGIT, _______, KC_LGUI,          RUN_M1,  /* */ TG(LY4),          MO(LY2), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
                                             KC_LALT, MO(LY1), KC_LBRC, /* */ KC_RBRC, KC_BSPC, KC_SPC
     ),
 
@@ -121,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LY2] = LAYOUT_moonlander(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RGB_VAD, /* */ RGB_VAI, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        _______, _______, _______, KC_MS_U, _______, _______, RGB_HUD, /* */ RGB_HUI, _______, _______, _______, _______, _______, _______,
-        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    RGB_SAD, /* */ RGB_SAI, KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, /* */ _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        _______, _______, _______, KC_MS_U, _______, _______, _______, /* */ _______, _______, _______, _______, _______, _______, _______,
+        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    _______, /* */ _______, KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
         _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, KC_BSLS, _______,
-        _______, _______, _______, _______, _______,          RGB_MOD,       RGB_TOG,          _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,          _______,       TG(LY5),          _______, _______, _______, _______, _______,
                                             _______, KC_LCTL, _______,       _______, _______, _______
     ),
 
@@ -146,6 +149,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F10,  KC_F11,  KC_F12,  KC_F13,  KC_LALT,         NV_SAVE,  /* */ TG(LY4),          MO(LY2), KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT,
                                             KC_SPC,  KC_TAB, KC_M,     /* */ KC_RBRC, KC_BSPC, KC_SPC
     ),
+
+    [LY5] = LAYOUT_moonlander(
+        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,           _______, _______, RGB_RMD, RGB_MOD, _______, _______, RGB_TOG,
+        _______, _______, _______, _______, _______, _______,                             _______, _______, RGB_VAD, RGB_VAI, _______, _______,
+        _______, _______, _______, _______, _______,          _______,           TG(LY5),          _______, RGB_SAD, RGB_HUD, RGB_HUI, RGB_SAI,
+                                            _______, _______, _______,           _______, _______, _______
+    ),
+
+
 
 
 };
